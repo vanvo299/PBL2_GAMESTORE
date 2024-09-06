@@ -89,6 +89,7 @@ int main()
     Customer *khachHang = new Customer;
     khachHang->displayCustomer();
 
+    // Giải phóng bộ nhớ
     delete khachHang;
     delete games;
     delete [] customers;
