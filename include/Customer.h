@@ -1,7 +1,11 @@
 #ifndef CUSTOMERS_H
 #define CUSTOMERS_H
 
+#include <iostream>
 #include <string>
+#include <fstream>
+#include <vector>
+#include <sstream>
 
 class Customer {
 private:
@@ -21,10 +25,15 @@ public:
     std::string getPhone();
     std::string getUserName();
     std::string getPassword();
-    
+    void resizeCustomerArray(Customer*& customers, int &size, const Customer& newCustomer);
+
     // Verify login
     bool verifyLogin(const std::string &userName, const std::string &password);
+    bool login();
+    void registerAccount();
+    void handlePostLogin(Customer*);
 
+    void updateCustomerInfo(Customer *);
     void displayCustomer();
 };
 
