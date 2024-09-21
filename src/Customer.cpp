@@ -45,12 +45,18 @@ std::string Customer::getPassword()
     return password;
 }
 
+void Customer::setPassword(string &password)
+{
+    this->password = password;
+}
+
+void Customer::setCustomerID(int customerID) 
+{
+    this->customerID = customerID;
+}
 bool Customer::verifyLogin(const std::string &userName, const std::string &password)
 {
-    if (this->userName != userName && this->password != password) {
-        return false;
-    }
-    return true;
+    return (this->userName == userName && this->password == password);
 }
 
 void Customer::resizeCustomerArray(Customer*& customers, int &size, const Customer& newCustomer)
@@ -73,7 +79,7 @@ void Customer::resizeCustomerArray(Customer*& customers, int &size, const Custom
     ++size;
 }
 
-bool Customer::login()
+bool Customer::login(Customer *&loggedInCustomer)
 {
     int customerSize;
     Customer* customers = FileManager::loadCustomer("D:\\PBL2_GAMESTORE\\text\\Customers.txt", customerSize);
@@ -89,13 +95,13 @@ bool Customer::login()
 
     for (int i = 0; i < customerSize; i++) {
         if (customers[i].verifyLogin(username, password)) {
-            customer = &customers[i];
+            loggedInCustomer = &customers[i];
             found = true;
             break;
         }
     }
     if (found) {
-        std::cout << "Login successful! Welcome, " << customer->getCustomerName() << "!\n";
+        std::cout << "Login successful! Welcome, " << loggedInCustomer->getCustomerName() << "!\n";
         return true;
     }
     else return false;
@@ -150,36 +156,140 @@ void Customer::displayCustomer()
     delete [] customers;
 }
 
-// Cập nhật thông tin khách hàng (đang bị lỗi)
-void Customer::updateCustomerInfo(Customer *customer)
-{
-    std::string name, email, phone;
-    std::cin.ignore();
+// Cập nhật thông tin khách hàng
+void Customer::updateCustomerInfo() {
+    std::string newName, newEmail, newPhone;
+    std::cin.ignore(); // Để xử lý ký tự newline còn lại trong buffer
+
     std::cout << "Enter new name: ";
-    getline(std::cin, name);
-    std::cout << "Enter email: ";
-    std::cin >> email;
-    std::cout << "Enter phone: ";
-    std::cin >> phone;
+    std::getline(std::cin, newName);
 
-    // Cập nhật thông tin của khách hàng
-    customer->customerName = name;
-    customer->email = email;
-    customer->phone = phone;
+    std::cout << "Enter new email: ";
+    std::cin >> newEmail;
 
-    // Lưu lại thông tin đã thay đổi
-    int customerSize;
-    Customer* updateCustomer = FileManager::loadCustomer("D:\\PBL2_GAMESTORE\\text\\Customers.txt", customerSize);
+    std::cout << "Enter new phone: ";
+    std::cin >> newPhone;
 
-    // Tìm và cập nhật thông tin khách hàng 
-    updateCustomer = customer;
+    // Đọc file và cập nhật thông tin khách hàng
+    std::ifstream fileIn("D:\\PBL2_GAMESTORE\\text\\Customers.txt");
+    if (!fileIn.is_open()) {
+        std::cout << "Unable to open file for reading.\n";
+        return;
+    }
 
-    FileManager::saveCustomer("D:\\PBL2_GAMESTORE\\text\\Customers.txt", *updateCustomer); // Lưu vào file 
+    std::string line, fileContent;
+    bool found = false;
 
-    std::cout << "Update info customer successfully !\n";
-    delete [] updateCustomer;
+    // Đọc từng dòng và xử lý
+    while (std::getline(fileIn, line)) {
+        std::istringstream iss(line);
+        std::string id, customerName, emailCustomer, phoneCustomer, username, password;
+
+        // Phân tách dòng hiện tại bằng dấu phân cách '|'
+        std::getline(iss, id, '|');
+        std::getline(iss, customerName, '|');
+        std::getline(iss, emailCustomer, '|');
+        std::getline(iss, phoneCustomer, '|');
+        std::getline(iss, username, '|');
+        std::getline(iss, password);
+
+        // Chỉ cập nhật thông tin của khách hàng hiện tại
+        if (std::stoi(id) == this->getCustomerID()) {
+            customerName = newName;
+            emailCustomer = newEmail;
+            phoneCustomer = newPhone;
+            found = true;
+        }
+
+        // Xây dựng lại nội dung file với giá trị đã cập nhật
+        fileContent += id + '|' + customerName + '|' + emailCustomer + '|' + phoneCustomer + '|' + username + '|' + password + '\n';
+    }
+    fileIn.close();
+
+    if (!found) {
+        std::cout << "Customer not found.\n";
+        return;
+    }
+
+    // Ghi đè lại file với nội dung mới
+    std::ofstream fileOut("D:\\PBL2_GAMESTORE\\text\\Customers.txt", std::ios::trunc);
+    if (!fileOut.is_open()) {
+        std::cout << "Unable to open file for writing.\n";
+        return;
+    }
+
+    fileOut << fileContent;
+    fileOut.close();
+
+    std::cout << "Update information successfully.\n";
 }
 
+// Thay đổi mật khẩu người dùng 
+void Customer::changePassword()
+{
+    string oldPassword, newPassword, confirmPassword;
+    std::cout << "Enter the old password: "; cin >> oldPassword;
+    
+    if (oldPassword != this->getPassword()) {
+        cout << "Old password is incorrect. \n";
+        return;
+    }
+    if (oldPassword == this->getPassword()) {
+        cout << "Enter the new password: "; cin >> newPassword;
+        cout << "Enter the confirm password: "; cin >> confirmPassword;
+
+        if (newPassword != confirmPassword) {
+            cout << "Confirmation password is incorrect. \n";
+            return;
+        } else {
+            ifstream fileIn("D:\\PBL2_GAMESTORE\\text\\Customers.txt");
+            if (!fileIn.is_open()) {
+                cout << "Unable to open file for reading. \n";
+                return;
+            }
+
+            string line, fileContent;
+            bool found = false;
+
+            // Doc tung dong va xu ly
+            while(getline(fileIn, line)) {
+                istringstream iss(line);
+                string id, customerName, email, phone, username, password;
+
+                // Phan tich dong hien tai bang dau phan cach '|'
+                getline(iss, id, '|');
+                getline(iss, customerName, '|');
+                getline(iss, email, '|');
+                getline(iss, phone, '|');
+                getline(iss, username, '|');
+                getline(iss, password);
+
+                if (stoi(id) == customerID) {
+                    password = newPassword;
+                    found = true;
+                }
+
+                // Xay dung lai noi dung file voi gia tri da cap nhat
+                fileContent += id + '|' + customerName + '|' + email + '|' + phone + '|' + username + '|' + password + '\n'; 
+            }
+            fileIn.close();
+            if (!found) {
+                cout << "Not found customer. \n";
+                return;
+            }
+
+            // Ghi de lai file voi noi dung moi
+            ofstream fileOut("D:\\PBL2_GAMESTORE\\text\\Customers.txt", ios::trunc);
+            if (!fileOut.is_open()) {
+                cout << "Unable to open file for writing. \n";
+                return;
+            }
+            fileOut << fileContent;
+            fileOut.close();
+            cout << "Change password successfully. \n";
+        }
+    }   
+}
 // Hiển thị
 void Customer::handlePostLogin(Customer* customer)
 {
