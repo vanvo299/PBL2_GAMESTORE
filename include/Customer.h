@@ -4,9 +4,8 @@
 #include <iostream>
 #include <string>
 #include <fstream>
-#include <vector>
 #include <sstream>
-
+using namespace std; 
 class Customer {
 private:
     int customerID;
@@ -27,13 +26,16 @@ public:
     std::string getPassword();
     void resizeCustomerArray(Customer*& customers, int &size, const Customer& newCustomer);
 
+    void setPassword(std::string &password);
+    void setCustomerID(int customerID);
     // Verify login
     bool verifyLogin(const std::string &userName, const std::string &password);
-    bool login();
+    bool login(Customer *&loggedInCustomer);
     void registerAccount();
     void handlePostLogin(Customer*);
 
-    void updateCustomerInfo(Customer *);
+    void changePassword();
+    void updateCustomerInfo();
     void displayCustomer();
 };
 

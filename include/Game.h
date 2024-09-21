@@ -5,6 +5,7 @@
 
 class Game {
 private:
+    // ID, tên sản phẩm, thể loại , giá, sl, hãng, hệ điều hành, thông số kĩ thuật(....)
     int idGame;
     std::string nameGame;
     std::string genre;
