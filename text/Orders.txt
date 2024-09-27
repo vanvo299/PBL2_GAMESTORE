@@ -1,15 +1,11 @@
 *
 Order details:
-102|Samsung Galaxy S24 Ultra|Dien Thoai|Samsung|iOS|1299|2
-Total Price: $2598
-*
-*
-Order details:
 101|iPhone 15 Pro Max|Dien Thoai|Apple|iOS|1299|2
 Total Price: $2598
 *
 *
 Order details:
 101|iPhone 15 Pro Max|Dien Thoai|Apple|iOS|1299|2
-Total Price: $2598
+101|iPhone 15 Pro Max|Dien Thoai|Apple|iOS|1299|2
+Total Price: $5196
 *
