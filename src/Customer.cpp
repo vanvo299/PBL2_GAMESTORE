@@ -92,7 +92,7 @@ void Customer::resizeCustomerArray(Customer*& customers, int &size, const Custom
 }
 
 // Đăng nhập
-int Customer::login(Customer *&loggedInCustomer)
+int Customer::login(Customer *&loggedInCustomer, int &ID)
 {
     int customerSize;
     Customer* customers = FileManager::loadCustomer("D:\\PBL2_GAMESTORE\\text\\Customers.txt", customerSize);
@@ -122,6 +122,7 @@ int Customer::login(Customer *&loggedInCustomer)
         return 2;
     }
     else if (found) {
+        ID = loggedInCustomer->getCustomerID();
         std::cout << "Login successful! Welcome, " << loggedInCustomer->getLastName() << " " << loggedInCustomer->getMiddleName() << " " << loggedInCustomer->getFirstName() << "!\n";
         return 1;
     }

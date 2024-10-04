@@ -1,2 +1,2 @@
-101|iPhone 15 Pro Max|Dien Thoai|1299|Apple|iOS|
-102|Samsung Galaxy S24 Ultra|Dien Thoai|1299|Samsung|Android|
+101|iPhone 15 Pro Max|Dien Thoai|Apple|iOS|1299|22
+102|Samsung Galaxy S24 Ultra|Dien Thoai|Samsung|Android|1299|20
