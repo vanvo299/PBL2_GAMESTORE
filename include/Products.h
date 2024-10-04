@@ -6,18 +6,21 @@
 
 using namespace std;
 
-class Products {
-    private:
-        int productID; // Mã sản phẩm
-        string nameProduct; // Tên sản phẩm
+
+class Products{
+    protected:
+        int productID; // mã sản phẩm
+        string nameProduct; // tên sản phẩm
         string genre; // thể loại của sản phẩm
-        double priceProduct; // Giá
         string manufacturer; // nhà sản xuất
-        string operatingSystem; // Hệ điều hành
+        string operatingSystem; // hệ điều hành
+        double priceProduct; // giá
         string specifications; // Thông số kĩ thuật
+        int Count; // số lượng sản phẩm
     public:
-        Products(int productID, string nameProduct, string genre, double priceProduct, string manufacturer, string operatingSystem, string specifications);
         Products();
+        Products(int, string, string, string, string, double, string, int);
+        Products(int, string, string, string, string, double, int);
         ~Products();
         // getter
         int getProductID();
@@ -27,6 +30,7 @@ class Products {
         string getManufacturer();
         string getOperatingSystem();
         string getSpecifications();
+        int getCount();
         
         // setter
         void setProductID(int productID);
@@ -35,7 +39,7 @@ class Products {
         void setPriceProduct(double priceProduct);
         void setManufacturer(string manufacturer);
         void setOperatingSystem(string operatingSystem);
-
+        void setCount(int count);
         void displayProducts();
 };
 #endif

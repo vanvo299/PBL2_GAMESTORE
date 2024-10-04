@@ -10,9 +10,12 @@ int main()
 {
     Customer *customers = new Customer;
     Products *products = new Products;
+    Product *product = new Product;
     Order *orders = new Order;
 
     int option;
+    int ID; // ID cua nguoi dung
+    int id; // id cua san pham
     bool InOut = true;
     while(InOut) {
         cout << "\t\t\t THE GIOI CONG NGHE \t\t\t";
@@ -27,7 +30,8 @@ int main()
         switch(option) {
             case 1:
             {
-                int dangNhap = customers->login(customers);
+                int dangNhap = customers->login(customers, ID);
+                orders->update();
                 if (dangNhap == 2) {
                     // day la admin
                     while(tinhNang) {
@@ -63,6 +67,7 @@ int main()
                 }
                 else if (dangNhap == 1) {
                     // Nếu là khách hàng 
+                    orders->setID(ID);
                     while(tinhNang) {
                         cout << endl;
                         cout << "1. Update info. \n";
@@ -70,7 +75,7 @@ int main()
                         cout << "3. Change password. \n";
                         cout << "4. Add to cart. \n";
                         cout << "0. Logout. \n";
-                        cout << "Enter choice: \n";
+                        cout << "Enter choice: ";
                         int choice; cin >> choice;
 
                         switch(choice) {
@@ -79,12 +84,19 @@ int main()
                                 break;
                             case 2:
                                 orders->displayOrder();
+                                orders->pay();
                                 break;
                             case 3:
                                 customers->changePassword();
                                 break;
                             case 4:
-                                orders->addData(101, "iPhone 15 Pro Max", "Dien Thoai", "Apple", "iOS", 1299, 2);
+                                do{
+                                    product->displayProduct();
+                                    cout << "Nhap so ID san pham ban muon mua: ";
+                                    cin >> id;
+                                    orders->addData(id);
+
+                                }while (id != 0);
                                 break;
                             case 0:
                                 cout << "Logout successfully.\n";
