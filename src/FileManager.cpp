@@ -78,7 +78,7 @@ Products* FileManager::loadSpecifications(const string &fileThongSoKyThuat, int 
     // Cấp phát mảng sản phẩm
     file.clear();
     file.seekg(0, ios::beg); // Quay lại đầu file
-    products = new Products[countProducts];
+    products = new Products [countProducts];
     int idx = 0;
     isProductStarted = false;
 
@@ -87,17 +87,24 @@ Products* FileManager::loadSpecifications(const string &fileThongSoKyThuat, int 
             if (isProductStarted) {
                 // Đã đọc xong một sản phẩm, xử lý dữ liệu sản phẩm
                 istringstream in(productData);
-                string productID_str, nameProduct, genre, priceProduct_str, manufacturer, operatingSystem, specifications;
+                string productID_str, nameProduct, genre, priceProduct_str, manufacturer, operatingSystem, specifications, counts;
 
                 // Đảm bảo tách đúng các phần của sản phẩm
                 if (getline(in, productID_str, '|') &&
+                    getline(in, nameProduct, '|') &&
+                    getline(in, genre, '|') &&
+                    getline(in, priceProduct_str, '|') &&
+                    getline(in, manufacturer, '|') &&
+                    getline(in, operatingSystem, '|') &&
                     getline(in, specifications, '|')) {
 
                     // Chuyển đổi kiểu dữ liệu
                     try {
                         int productID = stoi(productID_str);
+                        double priceProduct = stod(priceProduct_str);
+
                         // Gán dữ liệu cho sản phẩm
-                        products[idx++] = Products(productID, specifications);
+                        products[idx++] = Products(productID, nameProduct, genre, priceProduct, manufacturer, operatingSystem, specifications);
                     } catch (const invalid_argument& e) {
                         cerr << "Error converting data: " << e.what() << endl;
                     }
