@@ -22,7 +22,6 @@ public:
     Customer();
     // Getter
     int getCustomerID();
-    // string getCustomerName();
     string getLastName();
     string getMiddleName();
     string getFirstName();

@@ -1,0 +1,40 @@
+- Man hinh
+Kich thuoc man hinh: 6.8 Inches
+Cong nghe man hinh: Dynamic AMOLED 2X
+Do phan giai man hinh: 1440 x 3120 pixels
+Tan so quet: 120Hz
+Kieu man hinh: Duc lo (Not ruoi)
+- Camera sau
+Camera sau: Camera chinh: 200MP, Laser AF, OIS
+            Camera: 50MP, PDAF, OIS, zoom quang hoc 5x
+            Camera tele: 10 MP
+            Camera goc sieu rong: 12 MP, f/2.2, 13mm, 120˚
+Quay video: 8K@24/30fps, 4K@30/60/120fps,
+            1080p@30/60/240fps, 1080p@960fps
+- Camera truoc
+Camera truoc: 12 MP, f/2.2
+- Vi xu ly & Do hoa 
+Chipset: Snapdragon 8 Gen 3
+Loai CPU: 3.39GHz,3.1GHz,2.9GHz,2.2GHz
+GPU: Adreno 750 (1 GHz)
+- Giao tiep & ket noi
+Cong nghe NFC: Co
+The SIM: SIM 1 + SIM 2 / SIM 1 + eSIM / 2 eSIM
+He dieu hanh: Android 14, One UI 6.1
+Ho tro mang: 5G
+Wi-Fi: 802.11a/b/g/n/ac/ax/be 2.4GHz+5GHz+6GHz, EHT320, MIMO, 4096-QAM
+Bluetooth v5.3
+GPS: GPS, Glonass, Beidou, Galileo, QZSS
+- RAM & luu tru 
+Dung luong RAM: 12 GB
+Bo Nho Trong: 1TB
+- Pin & Cong nghe sac
+Pin: 5000 mAh
+Cong nghe sac: Sac nhanh 45W, Chia se pin khong day, 
+               Sac sieu nhanh, Sac khong day
+Cong sac: USB Type-C
+- Thiet ke & Trong luong
+Kich thuoc: 162.3 x 79.0 x 8.6mm
+Trong luong: 232g
+Chat lieu mat lung: Kinh
+Chat lieu khung vien: Titanium

@@ -23,6 +23,22 @@ Products::Products(int ID, string name, string gen, string manu, string oper, do
     this->Count = count;
 }
 
+Products::Products(int productID, string nameProduct, string genre, double priceProduct, string manufacturer, string operatingSystem)
+{
+    this->productID = productID;
+    this->nameProduct = nameProduct;
+    this->genre = genre;
+    this->priceProduct = priceProduct;
+    this->manufacturer = manufacturer;
+    this->operatingSystem = operatingSystem;
+}
+
+Products::Products(int productID, string specifications)
+{
+    this->productID = productID;
+    this->specifications = specifications;
+}
+
 Products::Products(){}
 
 Products::~Products(){}
@@ -83,6 +99,18 @@ void Products::setCount(int count){
     this->Count = count;
 }
 
+ostream& operator<<(ostream& out, const Products& product) 
+{
+    out << product.productID << "|" 
+            << product.nameProduct << "|"
+            << product.genre << "|"
+            << product.priceProduct << "|"
+            << product.manufacturer << "|"
+            << product.operatingSystem;
+    return out;
+}
+
+// Hiển thị thông tin của sản phẩm // Author: Vo
 void Products::displayProducts()
 {
     int productSize;
@@ -94,17 +122,15 @@ void Products::displayProducts()
     }
 
     // Hiên thị danh sách sản phẩm
-    cout << setw(3) << "STT" << setw(10) << "ID" << setw(25) << "Name Product" << setw(15) << "Genre" << setw(25) << "Manufacturer"
-        << setw(25) << "Operating System" << setw(10) << "Price" << setw(7) << "Count" << endl;
+    cout << "Ma san pham\t Ten san pham \t The loai \t Gia \t Hang san xuat \t He dieu hanh \n";
     for (int i = 0; i < productSize; i++) {
-        cout << setw(3) << i + 1
-            << setw(10) << products[i].productID
-            << setw(25) << products[i].nameProduct
-            << setw(15) << products[i].genre
-            << setw(25) << products[i].manufacturer
-            << setw(25) << products[i].operatingSystem
-            << setw(10) << products[i].priceProduct 
-            << setw(7) << products[i].Count << endl;
+        cout << products[i].getProductID() << "\t"
+             << products[i].getNameProduct() << "\t"
+             << products[i].getGenre() << "\t"
+             << products[i].getPriceProduct() << "\t"
+             << products[i].getManufacturer() << "\t"
+             << products[i].getOperatingSystem() << "\n";
+            //  << products[i].getSpecifications() << endl;
     }
     delete [] products;
 }

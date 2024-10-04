@@ -18,6 +18,7 @@ class Products{
         string specifications; // Thông số kĩ thuật
         int Count; // số lượng sản phẩm
     public:
+        Products(int productID, string nameProduct, string genre, double priceProduct, string manufacturer, string operatingSystem, string specifications);
         Products();
         Products(int, string, string, string, string, double, string, int);
         Products(int, string, string, string, string, double, int);
@@ -41,5 +42,9 @@ class Products{
         void setOperatingSystem(string operatingSystem);
         void setCount(int count);
         void displayProducts();
+
+        void displaySpecification(int productID); // Hiển thị thông số kỹ thuật chi tiết của sản phẩm
+
+        friend ostream& operator<<(ostream& out, const Products& product);
 };
 #endif

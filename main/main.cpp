@@ -2,6 +2,7 @@
 #include "D:\PBL2_GAMESTORE\include\FileManager.h"
 #include "D:\PBL2_GAMESTORE\include\Products.h"
 #include "D:\PBL2_GAMESTORE\include\Order.h"
+#include "D:\PBL2_GAMESTORE\include\Admin.h"
 #include <iostream>
 
 using namespace std;
@@ -12,6 +13,7 @@ int main()
     Products *products = new Products;
     Product *product = new Product;
     Order *orders = new Order;
+    Admin *admin = new Admin;
 
     int option;
     int ID; // ID cua nguoi dung
@@ -38,6 +40,9 @@ int main()
                         cout << endl;
                         cout << "1. Display customers. \n";
                         cout << "2. Display orders. \n";
+                        cout << "3. Add product. \n";
+                        cout << "4. Delete product. \n";
+                        cout << "5. Edit product. \n";
                         cout << "0. Logout. \n";
                         cout << "Enter choice: ";
                         int choice; cin >> choice;
@@ -52,6 +57,15 @@ int main()
                             {
                                 orders->displayOrder();
                             }
+                                break;
+                            case 3:
+                                admin->addProduct();
+                                break;
+                            case 4:
+                                admin->deleteProduct();
+                                break;
+                            case 5:
+                                admin->editProduct();
                                 break;
                             case 0:
                             {
@@ -74,6 +88,8 @@ int main()
                         cout << "2. Display Order. \n";
                         cout << "3. Change password. \n";
                         cout << "4. Add to cart. \n";
+                        cout << "5. Display specification. \n";
+                        cout << "6. Display products. \n";
                         cout << "0. Logout. \n";
                         cout << "Enter choice: ";
                         int choice; cin >> choice;
@@ -97,6 +113,16 @@ int main()
                                     orders->addData(id);
 
                                 }while (id != 0);
+                                break;
+                            case 5:
+                                int productID;
+                                cout << "Which product do you want to see the technical specifications of ? \n";
+                                cout << "Enter choice: ";
+                                cin >> productID;
+                                products->displaySpecification(productID);
+                                break;
+                            case 6:
+                                products->displayProducts();
                                 break;
                             case 0:
                                 cout << "Logout successfully.\n";
@@ -133,5 +159,6 @@ int main()
     delete customers;
     delete products;
     delete orders;
+    delete admin;
     return 0;
 }

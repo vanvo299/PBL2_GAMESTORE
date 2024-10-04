@@ -1,0 +1,36 @@
+- Vi xu ly & Do hoa
+Loai card do hoa: 14 nhan, Neural Engine 16 nhan
+Loai CPU: Apple M3 Pro 11 nhan
+- RAM & O cung
+Dung luong RAM: 18GB
+O cung: 512GB
+- Man hinh:
+Tan so quet: 120Hz
+Kich thuoc man hinh: 14.2 Inches
+Cong nghe man hinh: Do sang XDR: 1000 nit lien tuc o che do toan man hinh
+                    Do sang dinh 1600 nit (chi noi dung HDR)
+                    True Tone
+                    ProMotion
+Do phan giai man hinh: 3024 x 1964 pixels
+- Giao tiep & Ket noi:
+Loai den ban phim: Co
+Webcam: HD 1080p
+Wi-Fi: Wi-Fi 6E (802.11ax)
+Bluetooth: Bluetooth 5.3
+- Cong nghe am thanh
+Cong nghe am thanh: Am thanh steoreo rong Dolby Atmos
+- Thong so khac
+Bao mat: Touch ID 
+- Tien ich khac:
+Tinh nang dac biet: O cung SSD, Wi-Fi 6
+- Pin & Cong nghe sac
+Pin: 70Wh
+- Thiet ke & Trong luong
+Kich thuoc: Cao 1,55 - Rong 31,26 - Dai 22,12 com
+Trong luong: 1,55 kg 
+- Thong so ky thuat:
+Cong giao tiep: Hai cong Thunderbolt / USB 4 (USB-C)
+                Ba cong Thunderbolt 4 (USB-C)
+                Cong HDMI 
+                Khe the nho SDXC
+                Jack 3.5mm
