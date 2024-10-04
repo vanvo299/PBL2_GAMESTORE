@@ -47,9 +47,9 @@ Customer* FileManager::loadCustomer(const std::string& fileCustomer, int &countC
 }
 
 // Hàm nạp danh sách sản phẩm vào trong mảng
-Products* FileManager::loadProducts(const string &fileProduct, int &countProducts)
+Products* FileManager::loadSpecifications(const string &fileThongSoKyThuat, int &countProducts)
 {
-    ifstream file(fileProduct);
+    ifstream file(fileThongSoKyThuat);
     if (!file.is_open()) {
         cerr << "Cannot open file!" << endl;
         return NULL;
@@ -91,20 +91,13 @@ Products* FileManager::loadProducts(const string &fileProduct, int &countProduct
 
                 // Đảm bảo tách đúng các phần của sản phẩm
                 if (getline(in, productID_str, '|') &&
-                    getline(in, nameProduct, '|') &&
-                    getline(in, genre, '|') &&
-                    getline(in, priceProduct_str, '|') &&
-                    getline(in, manufacturer, '|') &&
-                    getline(in, operatingSystem, '|') &&
                     getline(in, specifications, '|')) {
 
                     // Chuyển đổi kiểu dữ liệu
                     try {
                         int productID = stoi(productID_str);
-                        double priceProduct = stod(priceProduct_str);
-
                         // Gán dữ liệu cho sản phẩm
-                        products[idx++] = Products(productID, nameProduct, genre, priceProduct, manufacturer, operatingSystem, specifications);
+                        products[idx++] = Products(productID, specifications);
                     } catch (const invalid_argument& e) {
                         cerr << "Error converting data: " << e.what() << endl;
                     }
@@ -138,4 +131,46 @@ void FileManager::saveCustomer(const std::string& fileCustomer, Customer& custom
              << customer.getUserName() << '|'
              << customer.getPassword() << std::endl;
     }
+}
+
+Products* FileManager::loadProducts(const std::string& fileProducts, int &countProducts)
+{
+    std::ifstream file(fileProducts);
+    Products *products = NULL;
+    countProducts = 0;
+
+    if (file.is_open()) {
+        std::string line;
+        // Đếm số lượng khách hàng
+        while(getline(file, line)) {
+            ++countProducts;
+        }
+
+        // Đếm xong và quay lại đầu file và cấp phát mảng và ghi dữ liệu vào mảng
+        file.clear();
+        file.seekg(0, std::ios::beg); // seekg dùng để di chuyển con trỏ về vị trí 0 đầu file
+        products = new Products[countProducts];
+        int idx = 0;
+
+        while(getline(file, line)) {
+            std::istringstream iss(line);
+            std::string productID_str, nameProduct, genre, priceProduct_str, manufacturer, operatingSystem;
+
+            // Tách các thành phần trong dòng bằng dấu |
+            std::getline(iss, productID_str, '|');
+            std::getline(iss, nameProduct, '|');
+            std::getline(iss, genre, '|');
+            std::getline(iss, priceProduct_str, '|');
+            std::getline(iss, manufacturer, '|');
+            std::getline(iss, operatingSystem);
+           
+
+            // Chuyển ID từ chuỗi thành số nguyên
+            int productID = std::stoi(productID_str);
+            double priceProduct = stod(priceProduct_str);
+            // Tạo Customer và lưu vào mảng
+            products[idx++] = Products(productID, nameProduct, genre, priceProduct, manufacturer, operatingSystem);
+        }
+    }
+    return products;
 }

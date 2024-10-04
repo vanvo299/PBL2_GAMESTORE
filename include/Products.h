@@ -17,6 +17,8 @@ class Products {
         string specifications; // Thông số kĩ thuật
     public:
         Products(int productID, string nameProduct, string genre, double priceProduct, string manufacturer, string operatingSystem, string specifications);
+        Products(int productID, string nameProduct, string genre, double priceProduct, string manufacturer, string operatingSystem);
+        Products(int productID, string specifications);
         Products();
         ~Products();
         // getter
@@ -37,5 +39,9 @@ class Products {
         void setOperatingSystem(string operatingSystem);
 
         void displayProducts();
+
+        void displaySpecification(int productID); // Hiển thị thông số kỹ thuật chi tiết của sản phẩm
+
+        friend ostream& operator<<(ostream& out, const Products& product);
 };
 #endif
