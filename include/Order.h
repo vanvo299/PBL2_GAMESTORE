@@ -16,6 +16,7 @@ class Product : public Products{
         Product();
         Product(int);
         Product(int, string, string, string, string, double, int);
+        Product(int, string, string, double, string, string, int);
         ~Product();
         static void loadProducts(const std::string& fileProducts, int& countProducts);
         Product& operator = (const Product&);
@@ -30,6 +31,8 @@ class Order : public Customer, public Product {
     int count;    // số lượng hiện tại
     static int customerID; // ID của khách hàng
 public:
+    Order(int productID, string nameProduct, string genre, double priceProduct, string manufacturer, string operatingSystem, int count);
+
     Order(int capacity = 10);
     Order(const Order& other);
     Order& operator=(const Order& other);
@@ -38,6 +41,9 @@ public:
     void setID(int ID);
     // lấy Order trong file
     Products* loadOrder(const string &fileOrder, int &count, int &capacity);
+
+    // Order* loadOrder(const string &fileOrder, int& countOrder); // Load dữ liệu thông tin giỏ hàng của từng khách hàng
+
     void update(){
         data = loadOrder("D:\\PBL2_GAMESTORE\\text\\Orders.txt", count, capacity);
     }
@@ -50,7 +56,7 @@ public:
     // tăng sức chứa
     void increaseCapacity();
     // in ra
-    void displayOrder() const; 
+    void displayOrder(); 
     // lưu vào file text
     void saveToFile(const string& filename) const; 
     // tìm kiếm đơn hàng trong order

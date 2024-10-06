@@ -18,10 +18,12 @@ class Products{
         string specifications; // Thông số kĩ thuật
         int Count; // số lượng sản phẩm
     public:
-        Products(int productID, string nameProduct, string genre, double priceProduct, string manufacturer, string operatingSystem, string specifications);
+        // Products(int productID, string nameProduct, string genre, double priceProduct, string manufacturer, string operatingSystem, string specifications);
+        Products(int productID, string nameProduct, string genre, double priceProduct, string manufacturer, string operatingSystem);
+        Products(int ProductID, string specifications);
         Products();
         Products(int, string, string, string, string, double, string, int);
-        Products(int, string, string, string, string, double, int);
+        Products(int, string, string, double, string, string, int);
         ~Products();
         // getter
         int getProductID();

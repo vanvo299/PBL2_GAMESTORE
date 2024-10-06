@@ -92,7 +92,7 @@ void Customer::resizeCustomerArray(Customer*& customers, int &size, const Custom
 }
 
 // Đăng nhập
-int Customer::login(Customer *&loggedInCustomer, int &ID)
+int Customer::login(Customer *&loggedInCustomer)
 {
     int customerSize;
     Customer* customers = FileManager::loadCustomer("D:\\PBL2_GAMESTORE\\text\\Customers.txt", customerSize);
@@ -119,15 +119,56 @@ int Customer::login(Customer *&loggedInCustomer, int &ID)
         }
     if (checkAdmin && found) {
         cout << "Welcome to admin, " << loggedInCustomer->getLastName() << " " << loggedInCustomer->getMiddleName() << " " << loggedInCustomer->getFirstName() << "!\n";
+        delete [] customers; 
         return 2;
     }
     else if (found) {
-        ID = loggedInCustomer->getCustomerID();
+        // ID = loggedInCustomer->getCustomerID();
         std::cout << "Login successful! Welcome, " << loggedInCustomer->getLastName() << " " << loggedInCustomer->getMiddleName() << " " << loggedInCustomer->getFirstName() << "!\n";
+        delete [] customers;
         return 1;
     }
-    else return 0;
+    delete [] customers;
+    return 0;
 }
+
+int Customer::login(const std::string& username, const std::string& password, Customer*& loggedInCustomer)
+{
+    int customerSize;
+    Customer* customers = FileManager::loadCustomer("D:\\PBL2_GAMESTORE\\text\\Customers.txt", customerSize);
+
+    bool found = false;
+    bool checkAdmin = false;
+
+    for (int i = 0; i < customerSize; i++) {
+        if (customers[i].verifyLogin(username, password)) {
+            loggedInCustomer = &customers[i];
+            found = true;
+            break;
+        }
+    }
+    
+    // Nếu người login vào là Admin
+    if (found && loggedInCustomer->getCustomerID() < 0) {
+        checkAdmin = true;
+    }
+
+    if (checkAdmin && found) {
+        std::cout << "Welcome to admin, " << loggedInCustomer->getLastName() << " " << loggedInCustomer->getMiddleName() << " " << loggedInCustomer->getFirstName() << "!\n";
+        delete [] customers;
+        return 2;
+    }
+    else if (found) {
+        std::cout << "Login successful! Welcome, " << loggedInCustomer->getLastName() << " " << loggedInCustomer->getMiddleName() << " " << loggedInCustomer->getFirstName() << "!\n";
+        delete [] customers;    
+        return 1;
+    }
+    else {
+        delete [] customers;
+        return 0;
+    }
+}
+
 
 // Đăng kí tài khoản
 void Customer::registerAccount()
@@ -161,6 +202,54 @@ void Customer::registerAccount()
     std::cout << "Account created successfully!\n";
     customer = &customers[customerSize - 1];
 
+    // Tạo file order của chính khách hàng vứa đăng kí 
+    string nameFile = to_string(newID) + "_order.txt";
+    string fileOrderPath = "D:\\PBL2_GAMESTORE\\text\\Order\\" + nameFile;
+
+    ofstream fileOrder(fileOrderPath, ios::app);
+    
+    fileOrder.close();
+    delete [] customers;
+}
+
+void Customer::registerAccount(string lastName, string middleName, string firstName, string email, string phone, string userName, string password)
+{
+    int customerSize;
+    Customer* customers = FileManager::loadCustomer("D:\\PBL2_GAMESTORE\\text\\Customers.txt", customerSize);
+    Customer *customer = new Customer;
+
+    int newID = customerSize + 1;
+
+    std::cout << "Enter your last name: ";
+    std::cin.ignore();
+    getline(std::cin, lastName);
+    cout << "Enter your middle name: ";
+    getline(cin, middleName);
+    cout << "Enter your first name: ";
+    getline(cin, firstName);
+    std::cout << "Enter your email: ";
+    std::cin >> email;
+    std::cout << "Enter your phone: ";
+    std::cin >> phone;
+    std::cout << "Enter your username: ";
+    std::cin >> userName;
+    std::cout << "Enter your password: ";
+    std::cin >> password;
+
+    Customer newCustomer(newID, lastName, middleName, firstName, email, phone, userName, password);
+    resizeCustomerArray(customers, customerSize, newCustomer); // Thêm khách hàng mới vào mảng động 
+    FileManager::saveCustomer("D:\\PBL2_GAMESTORE\\text\\Customers.txt", newCustomer); // Lưu vào file 
+
+    std::cout << "Account created successfully!\n";
+    customer = &customers[customerSize - 1];
+
+    // Tạo file order của chính khách hàng vứa đăng kí 
+    string nameFile = to_string(newID) + "_order";
+    string fileOrderPath = "D:\\PBL2_GAMESTORE\\text\\Order\\" + nameFile;
+
+    ofstream fileOrder(fileOrderPath, ios::app);
+    
+    fileOrder.close();
 }
 
 void Customer::displayCustomer()

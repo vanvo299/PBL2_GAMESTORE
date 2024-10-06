@@ -9,3 +9,18 @@ Order details:
 101|iPhone 15 Pro Max|Dien Thoai|Apple|iOS|1299|1
 102|Samsung Galaxy S24 Ultra|Dien Thoai|Samsung|Android|1299|2
 *
+*
+1
+Order details:
+101|iPhone 15 Pro Max|Dien Thoai|Apple|iOS|1299|1
+*
+*
+1
+Order details:
+102|Samsung Galaxy S24 Ultra|Dien Thoai|1299|Samsung|Android|1
+*
+*
+2
+Order details:
+102|Samsung Galaxy S24 Ultra|Dien Thoai|1299|Samsung|Android|1
+*
