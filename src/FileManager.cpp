@@ -91,20 +91,13 @@ Products* FileManager::loadSpecifications(const string &fileThongSoKyThuat, int 
 
                 // Đảm bảo tách đúng các phần của sản phẩm
                 if (getline(in, productID_str, '|') &&
-                    getline(in, nameProduct, '|') &&
-                    getline(in, genre, '|') &&
-                    getline(in, priceProduct_str, '|') &&
-                    getline(in, manufacturer, '|') &&
-                    getline(in, operatingSystem, '|') &&
                     getline(in, specifications, '|')) {
 
                     // Chuyển đổi kiểu dữ liệu
                     try {
                         int productID = stoi(productID_str);
-                        double priceProduct = stod(priceProduct_str);
-
                         // Gán dữ liệu cho sản phẩm
-                        products[idx++] = Products(productID, nameProduct, genre, priceProduct, manufacturer, operatingSystem, specifications);
+                        products[idx++] = Products(productID, specifications);
                     } catch (const invalid_argument& e) {
                         cerr << "Error converting data: " << e.what() << endl;
                     }
@@ -161,7 +154,7 @@ Products* FileManager::loadProducts(const std::string& fileProducts, int &countP
 
         while(getline(file, line)) {
             std::istringstream iss(line);
-            std::string productID_str, nameProduct, genre, priceProduct_str, manufacturer, operatingSystem;
+            std::string productID_str, nameProduct, genre, priceProduct_str, manufacturer, operatingSystem, count_str;
 
             // Tách các thành phần trong dòng bằng dấu |
             std::getline(iss, productID_str, '|');
@@ -169,15 +162,68 @@ Products* FileManager::loadProducts(const std::string& fileProducts, int &countP
             std::getline(iss, genre, '|');
             std::getline(iss, priceProduct_str, '|');
             std::getline(iss, manufacturer, '|');
-            std::getline(iss, operatingSystem);
+            std::getline(iss, operatingSystem, '|');
+            std::getline(iss, count_str);
            
 
             // Chuyển ID từ chuỗi thành số nguyên
             int productID = std::stoi(productID_str);
-            double priceProduct = stod(priceProduct_str);
+            int count = std::stoi(count_str);
+            double priceProduct = std::stod(priceProduct_str);
             // Tạo Customer và lưu vào mảng
-            products[idx++] = Products(productID, nameProduct, genre, priceProduct, manufacturer, operatingSystem);
+            products[idx++] = Products(productID, nameProduct, genre, priceProduct, manufacturer, operatingSystem, count);
         }
     }
     return products;
 }
+
+Order *FileManager::loadOrder(const string &fileOrder, int& countOrder)
+{
+    ifstream inFile(fileOrder);
+    countOrder = 0;
+    Order *orders = nullptr; // Sử dụng nullptr thay cho NULL
+
+    if (!inFile.is_open()) {
+        cout << "Could not open the file. \n";
+        return nullptr;
+    }
+
+    string line;
+    while (getline(inFile, line)) {
+        ++countOrder;
+    }
+
+    inFile.clear();
+    inFile.seekg(0, ios::beg);
+
+    orders = new (std::nothrow) Order[countOrder]; // Sử dụng std::nothrow để tránh ngoại lệ
+    if (orders == nullptr) {
+        std::cerr << "Memory allocation failed." << std::endl;
+        return nullptr; // Trả về nullptr nếu cấp phát thất bại
+    }
+
+    int index = 0;
+    while (getline(inFile, line)) {
+        istringstream iss(line);
+        string productID_str, nameProduct, genre, priceProduct_str, manufacturer, operatingSystem, count_str;
+
+        getline(iss, productID_str, '|');
+        getline(iss, nameProduct, '|');
+        getline(iss, genre, '|');
+        getline(iss, priceProduct_str, '|');
+        getline(iss, manufacturer, '|');
+        getline(iss, operatingSystem, '|');
+        getline(iss, count_str);
+
+        int productID = stoi(productID_str);
+        double priceProduct = stod(priceProduct_str);
+        int count = stoi(count_str);
+        
+        // Đảm bảo chỉ số không vượt quá countOrder
+        if (index < countOrder) {
+            orders[index++] = Order(productID, nameProduct, genre, priceProduct, manufacturer, operatingSystem, count);
+        }
+    }
+    return orders; // Chỉ cần trả về orders mà không cần delete ở đây
+}
+

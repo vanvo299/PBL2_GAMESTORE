@@ -13,7 +13,7 @@ Products::Products(int ID, string name, string gen, string manu, string oper, do
     this->Count = count;
 }
 
-Products::Products(int ID, string name, string gen, string manu, string oper, double price, int count){
+Products::Products(int ID, string name, string gen, double price, string manu, string oper, int count){
     this->productID = ID;
     this->nameProduct = name;
     this->genre = gen;
@@ -132,5 +132,27 @@ void Products::displayProducts()
              << products[i].getOperatingSystem() << "\n";
             //  << products[i].getSpecifications() << endl;
     }
+    delete [] products;
+}
+
+void Products::displaySpecification(int productID)
+{
+    bool check = false;
+    int productSize;
+    Products *products = FileManager::loadSpecifications("D:\\PBL2_GAMESTORE\\text\\ThongSoKyThuat.txt", productSize);
+
+    if (products == NULL || productSize == 0) {
+        cout << "No product available. \n";
+        return;
+    }
+    for (int i = 0; i < productSize; i++) {
+        if (products[i].getProductID() == productID) {
+            cout << "Thong so ky thuat \n";
+            cout << products[i].getSpecifications() << endl;
+            check = true;
+        } 
+    }
+    if (!check)
+        cout << "Products not found ! \n";
     delete [] products;
 }

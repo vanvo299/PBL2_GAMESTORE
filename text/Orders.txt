@@ -1,11 +1,26 @@
 *
-1
 Order details:
-101|iPhone 15 Pro Max|Dien Thoai|Apple|iOS|1299|1
-102|Samsung Galaxy S24 Ultra|Dien Thoai|Samsung|Android|1299|2
+101|iPhone 15 Pro Max|Dien Thoai|Apple|iOS|1299|2
+101|iPhone 15 Pro Max|Dien Thoai|Apple|iOS|1299|2
+Total Price: $5196
 *
 *
 Order details:
 101|iPhone 15 Pro Max|Dien Thoai|Apple|iOS|1299|2
 Total Price: $2598
+*
+*
+2
+Order details:
+102|Samsung Galaxy S24 Ultra|Dien Thoai|1299|Samsung|Android|1
+*
+*
+1
+Order details:
+103|MacBook 13 Pro M4 Pro|Laptop|1953.89|Apple|macOS|1
+*
+*
+1
+Order details:
+103|MacBook 13 Pro M4 Pro|Laptop|1953.89|Apple|macOS|2
 *
