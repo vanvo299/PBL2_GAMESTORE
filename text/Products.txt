@@ -1,3 +1,3 @@
-101|iPhone 15 Pro Max|Dien Thoai|1299|Apple|iOS|20
-102|Samsung Galaxy S24 Ultra|Dien Thoai|1299|Samsung|Android|19
-103|MacBook 13 Pro M4 Pro|Laptop|1953.89|Apple|macOS|21
+101|iPhone 15 Pro Max|Dien Thoai|1299|Apple|iOS|13
+102|Samsung Galaxy S24 Ultra|Dien Thoai|1299|Samsung|Android|13
+103|MacBook 13 Pro M4 Pro|Laptop|1953.89|Apple|macOS|17

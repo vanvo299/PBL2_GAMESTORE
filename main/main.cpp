@@ -33,7 +33,6 @@ int main()
             case 1:
             {
                 int dangNhap = customers->login(customers);
-                // orders->update();
                 if (dangNhap == 2) {
                     // day la admin
                     while(tinhNang) {
@@ -82,6 +81,7 @@ int main()
                 else if (dangNhap == 1) {
                     // Nếu là khách hàng 
                     orders->setID(customers->getCustomerID());
+                    orders->update();
                     while(tinhNang) {
                         cout << endl;
                         cout << "1. Update info. \n";

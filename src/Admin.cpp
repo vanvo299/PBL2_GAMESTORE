@@ -173,18 +173,20 @@ void Admin::deleteProduct() {
         }
 
         istringstream iss(line);
-        string productID_str, nameProduct, genre, priceProduct_str, manufacturer, operatingSystem;
+        string productID_str, nameProduct, genre, priceProduct_str, manufacturer, operatingSystem, count;
         getline(iss, productID_str, '|');
         getline(iss, nameProduct, '|');
         getline(iss, genre, '|');
         getline(iss, priceProduct_str, '|');
         getline(iss, manufacturer, '|');
         getline(iss, operatingSystem, '|');
+        getline(iss, count);
 
         int id = stoi(productID_str);
         double priceProduct = stod(priceProduct_str);
+        int Count = stoi(count);
 
-        product[index++] = Products(id, nameProduct, genre, priceProduct, manufacturer, operatingSystem);
+        product[index++] = Products(id, nameProduct, genre, priceProduct, manufacturer, operatingSystem, Count);
     }
 
     // Ghi lại các sản phẩm vào file (đã xóa sản phẩm cần xóa)

@@ -3,8 +3,7 @@
     {
       "name": "windows-gcc-x86",
       "includePath": [
-        "${workspaceFolder}/**",
-        "C:\\SFML-2.6.1\\include"
+        "${workspaceFolder}/**"
       ],
       "compilerPath": "C:\\MinGW\\winlibs-i686-posix-dwarf-gcc-13.1.0-mingw-w64msvcrt-11.0.0-r5\\mingw32\\bin\\gcc.exe",
       "cStandard": "${default}",

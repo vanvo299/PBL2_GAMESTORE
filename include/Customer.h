@@ -8,6 +8,7 @@
 using namespace std; 
 class Customer {
 private:
+    int customerID;
     // string customerName;
     string lastName;
     string firstName;
@@ -16,8 +17,6 @@ private:
     string phone;
     string userName;
     string password;
-protected:
-    int customerID;
 public:
     Customer(int customerID, string lastName, string middleName, string firstName, string email, string phone, string userName, string password);
     Customer();
@@ -36,12 +35,8 @@ public:
     void setCustomerID(int customerID);
     // Verify login
     bool verifyLogin(const string &userName, const string &password);
-
-    int login(const string& username, const string &password, Customer *&loggedInCustomer);
     int login(Customer *&loggedInCustomer);
-
     void registerAccount();
-    void registerAccount(string lastName, string middleName, string firstName, string email, string phone, string userName, string password);
     void handlePostLogin(Customer*);
 
     

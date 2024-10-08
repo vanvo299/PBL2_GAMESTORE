@@ -45,6 +45,22 @@ Customer* FileManager::loadCustomer(const std::string& fileCustomer, int &countC
     }
     return customers;
 }
+void FileManager::saveCustomer(const std::string& fileCustomer, Customer& customer)
+{
+    std::ofstream file(fileCustomer, std::ios::app);
+    if (file.is_open()) {
+        file << customer.getCustomerID() << '|'
+             << customer.getLastName() << '|'
+             << customer.getMiddleName() << '|'
+             << customer.getFirstName() << '|'
+             << customer.getEmail() << '|'
+             << customer.getPhone() << '|'
+             << customer.getUserName() << '|'
+             << customer.getPassword() << std::endl;
+    }
+}
+
+
 
 // Hàm nạp danh sách sản phẩm vào trong mảng
 Products* FileManager::loadSpecifications(const string &fileThongSoKyThuat, int &countProducts)
@@ -117,22 +133,6 @@ Products* FileManager::loadSpecifications(const string &fileThongSoKyThuat, int 
     }
     return products;
 }
-
-void FileManager::saveCustomer(const std::string& fileCustomer, Customer& customer)
-{
-    std::ofstream file(fileCustomer, std::ios::app);
-    if (file.is_open()) {
-        file << customer.getCustomerID() << '|'
-             << customer.getLastName() << '|'
-             << customer.getMiddleName() << '|'
-             << customer.getFirstName() << '|'
-             << customer.getEmail() << '|'
-             << customer.getPhone() << '|'
-             << customer.getUserName() << '|'
-             << customer.getPassword() << std::endl;
-    }
-}
-
 Products* FileManager::loadProducts(const std::string& fileProducts, int &countProducts)
 {
     std::ifstream file(fileProducts);
@@ -165,7 +165,6 @@ Products* FileManager::loadProducts(const std::string& fileProducts, int &countP
             std::getline(iss, operatingSystem, '|');
             std::getline(iss, count_str);
            
-
             // Chuyển ID từ chuỗi thành số nguyên
             int productID = std::stoi(productID_str);
             int count = std::stoi(count_str);
@@ -176,12 +175,31 @@ Products* FileManager::loadProducts(const std::string& fileProducts, int &countP
     }
     return products;
 }
+void FileManager::saveProducts(const string fileProducts, Products* products, int& countProduct){
+    ofstream outFile(fileProducts, ios::out);
+    if (outFile.is_open()) {
+        for(int i = 0; i < countProduct; i++){
+            outFile << products[i].getProductID() << "|"
+                << products[i].getNameProduct() << "|"
+                << products[i].getGenre() << "|"
+                << products[i].getPriceProduct() << "|"
+                << products[i].getManufacturer() << "|"
+                << products[i].getOperatingSystem() << "|"
+                << products[i].getCount() << endl;
+        }
+        outFile.close();
+    }
+    else {
+        cout << "Unable to open file " << fileProducts << endl;
+    }
+}
 
-Order *FileManager::loadOrder(const string &fileOrder, int& countOrder)
+
+Products* FileManager::loadOrder(const string &fileOrder, int& countOrder, int& capacity)
 {
     ifstream inFile(fileOrder);
     countOrder = 0;
-    Order *orders = nullptr; // Sử dụng nullptr thay cho NULL
+    Products* orders = nullptr; // Sử dụng nullptr thay cho NULL
 
     if (!inFile.is_open()) {
         cout << "Could not open the file. \n";
@@ -192,11 +210,11 @@ Order *FileManager::loadOrder(const string &fileOrder, int& countOrder)
     while (getline(inFile, line)) {
         ++countOrder;
     }
-
+    capacity = (countOrder / 10 + 1) * 10;
     inFile.clear();
     inFile.seekg(0, ios::beg);
 
-    orders = new (std::nothrow) Order[countOrder]; // Sử dụng std::nothrow để tránh ngoại lệ
+    orders = new (std::nothrow) Products[capacity]; // Sử dụng std::nothrow để tránh ngoại lệ
     if (orders == nullptr) {
         std::cerr << "Memory allocation failed." << std::endl;
         return nullptr; // Trả về nullptr nếu cấp phát thất bại
@@ -214,16 +232,65 @@ Order *FileManager::loadOrder(const string &fileOrder, int& countOrder)
         getline(iss, manufacturer, '|');
         getline(iss, operatingSystem, '|');
         getline(iss, count_str);
-
-        int productID = stoi(productID_str);
-        double priceProduct = stod(priceProduct_str);
-        int count = stoi(count_str);
         
-        // Đảm bảo chỉ số không vượt quá countOrder
-        if (index < countOrder) {
-            orders[index++] = Order(productID, nameProduct, genre, priceProduct, manufacturer, operatingSystem, count);
+        try{
+            int productID = stoi(productID_str);
+            double priceProduct = stod(priceProduct_str);
+            int count = stoi(count_str);
+            
+            // Đảm bảo chỉ số không vượt quá countOrder
+            if (index < countOrder) {
+                orders[index++] = Products(productID, nameProduct, genre, priceProduct, manufacturer, operatingSystem, count);
+            }
+        } catch (const std::invalid_argument& e) {
+            std::cerr << "Invalid data in file: " << e.what() << std::endl;
+        } catch (const std::out_of_range& e) {
+            std::cerr << "Number out of range in file: " << e.what() << std::endl;
         }
+        
     }
     return orders; // Chỉ cần trả về orders mà không cần delete ở đây
 }
+void FileManager::saveOrder(const string& filename, Products* data, int& count){
+    ofstream outFile(filename, ios:: out);
+    if (outFile.is_open()) {
+        for (int i = 0; i < count; i++) {
+            // outFile << i + 1
+            outFile << data[i].getProductID() << "|"
+                    << data[i].getNameProduct() << "|"
+                    << data[i].getGenre() << "|"
+                    << data[i].getPriceProduct() << "|"
+                    << data[i].getManufacturer() << "|"
+                    << data[i].getOperatingSystem() << "|"
+                    << data[i].getCount() << endl;
+        }
+        outFile.close();
+    }
+    else {
+        cout << "Unable to open file " << filename << endl;
+    }
+}
 
+
+void FileManager::savePay(const string& filename, Products* pay, int& count, int customerID){
+    ofstream outFile(filename);
+    if (outFile.is_open()) {
+        outFile << "*" << endl;
+        outFile << customerID << "|";
+        for (int i = 0; i < count; i++) {
+            // outFile << i + 1
+            outFile << pay[i].getProductID() << "|"
+                    << pay[i].getNameProduct() << "|"
+                    << pay[i].getGenre() << "|"
+                    << pay[i].getPriceProduct() << "|"
+                    << pay[i].getManufacturer() << "|"
+                    << pay[i].getOperatingSystem() << "|"
+                    << pay[i].getCount() << endl;
+        }
+        outFile << "*" << endl;
+        outFile.close();
+    }
+    else {
+        cout << "Unable to open file " << filename << endl;
+    }
+}
