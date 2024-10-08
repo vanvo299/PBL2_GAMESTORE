@@ -35,7 +35,7 @@ public:
     void setCustomerID(int customerID);
     // Verify login
     bool verifyLogin(const string &userName, const string &password);
-    int login(Customer *&loggedInCustomer, int &ID);
+    int login(Customer *&loggedInCustomer);
     void registerAccount();
     void handlePostLogin(Customer*);
 

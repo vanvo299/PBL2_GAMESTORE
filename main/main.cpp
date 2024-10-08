@@ -32,8 +32,7 @@ int main()
         switch(option) {
             case 1:
             {
-                int dangNhap = customers->login(customers, ID);
-                orders->update();
+                int dangNhap = customers->login(customers);
                 if (dangNhap == 2) {
                     // day la admin
                     while(tinhNang) {
@@ -81,7 +80,8 @@ int main()
                 }
                 else if (dangNhap == 1) {
                     // Nếu là khách hàng 
-                    orders->setID(ID);
+                    orders->setID(customers->getCustomerID());
+                    orders->update();
                     while(tinhNang) {
                         cout << endl;
                         cout << "1. Update info. \n";
@@ -156,6 +156,8 @@ int main()
                 break;
         }
     }
+
+    cout << customers->getCustomerID();
     delete customers;
     delete products;
     delete orders;
